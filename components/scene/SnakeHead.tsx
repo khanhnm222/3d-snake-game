@@ -1,5 +1,5 @@
 'use client'
-import type { SnakeTheme } from '@/lib/snackTheme'
+import type { SnakeTheme } from '@/lib/snakeTheme'
 
 interface Props {
   theme: SnakeTheme

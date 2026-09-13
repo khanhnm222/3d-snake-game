@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Snack 3D — First-Person Snake",
+  title: "Snake 3D — First-Person Snake",
   description: "First-person 3D snake game built with Next.js and Three.js",
 };
 

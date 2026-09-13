@@ -46,7 +46,7 @@ export default function IdleScreen({ onPlay }: { onPlay: () => void }) {
         {/* Title */}
         <div className="flex flex-col items-center gap-1 pt-4">
           <h1 className="text-5xl font-bold font-mono tracking-tight">
-            SNACK<span style={{ color: activeTheme.swatch }}>3D</span>
+            SNAKE<span style={{ color: activeTheme.swatch }}>3D</span>
           </h1>
           <p className="text-white/30 font-mono text-[11px] tracking-[0.22em] uppercase">
             First-Person · Round 1
