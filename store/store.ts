@@ -1,7 +1,7 @@
 'use client'
 import { create } from 'zustand'
 import type { Direction, FoodItem, FoodType, GameStatus, Position } from '../types'
-import { SNAKE_THEMES } from '../lib/snackTheme'
+import { SNAKE_THEMES } from '../lib/snakeTheme'
 
 export type SkyMode = 'auto' | 'day' | 'night'
 
