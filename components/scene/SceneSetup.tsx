@@ -29,7 +29,9 @@ const NIGHT = {
   center:     { color: '#6080e0', intensity: 0.35 },
 }
 
-export default function SceneSetup({ darkMode }: { darkMode: boolean }) {
+export default function SceneSetup({ darkMode, lowPower = false }: { darkMode: boolean; lowPower?: boolean }) {
+  // Phones: half-resolution shadow map keeps the frame rate up
+  const shadowRes = lowPower ? 1024 : 2048
   const { scene } = useThree()
   const P = darkMode ? NIGHT : DAY
 
@@ -49,8 +51,11 @@ export default function SceneSetup({ darkMode }: { darkMode: boolean }) {
         intensity={P.sun.intensity}
         color={P.sun.color}
         castShadow
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
+        shadow-mapSize-width={shadowRes}
+        shadow-mapSize-height={shadowRes}
+        shadow-bias={-0.0004}
+        shadow-normalBias={0.025}
+        shadow-radius={3}
         shadow-camera-far={65}
         shadow-camera-left={-22}
         shadow-camera-right={22}

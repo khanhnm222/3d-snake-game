@@ -69,6 +69,7 @@ export default function Ground() {
           key={`fl${i}`}
           rotation={[-Math.PI / 2, f.rot, 0]}
           position={[f.x, 0.012, f.z]}
+          receiveShadow
         >
           <circleGeometry args={[f.size, 6]} />
           <meshStandardMaterial color={f.color} roughness={0.75} />
@@ -77,7 +78,7 @@ export default function Ground() {
 
       {/* ── Stream — winding water near north wall ────────── */}
       {/* Main water surface */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.018, -13.2]}>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.018, -13.2]} receiveShadow>
         <planeGeometry args={[full, 2.8]} />
         <meshStandardMaterial
           ref={streamMatRef}
@@ -94,11 +95,11 @@ export default function Ground() {
       </mesh>
 
       {/* Stream banks — dark soil strips */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.005, -11.85]}>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.005, -11.85]} receiveShadow>
         <planeGeometry args={[full, 0.5]} />
         <meshStandardMaterial color="#4a3820" roughness={0.96} />
       </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.005, -14.55]}>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.005, -14.55]} receiveShadow>
         <planeGeometry args={[full, 0.5]} />
         <meshStandardMaterial color="#4a3820" roughness={0.96} />
       </mesh>
@@ -109,6 +110,7 @@ export default function Ground() {
           key={`moss${i}`}
           rotation={[-Math.PI / 2, i * 0.7, 0]}
           position={[x, 0.008, -11.7 + (i % 2) * 0.3]}
+          receiveShadow
         >
           <circleGeometry args={[0.45 + (i % 3) * 0.12, 7]} />
           <meshStandardMaterial color="#3a7a30" roughness={0.9} />
