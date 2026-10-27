@@ -1,4 +1,4 @@
-import type { FoodItem, MapObject, Level } from '../types'
+import type { FoodItem, MapObject, Level, Obstacle } from '../types'
 
 export const ROUND1_LEVEL: Level = {
   size: 15,   // grid runs -15..15 (30x30 play area)
@@ -83,4 +83,17 @@ export const ROUND1_OBJECTS: MapObject[] = [
   { id: 'sr1', type: 'rock', position: { x:  -7, z: -12 }, scale: 0.45, rotation: 0.4, variant: 1 },
   { id: 'sr2', type: 'rock', position: { x:   2, z: -13 }, scale: 0.38, rotation: 2.0, variant: 0 },
   { id: 'sr3', type: 'rock', position: { x:   8, z: -12 }, scale: 0.50, rotation: 1.1, variant: 2 },
+]
+
+// Gameplay obstacles — placed on clear ground away from the decorations,
+// the snake spawn column (x=0, z=0..2) and the starting food.
+export const ROUND1_OBSTACLES: Obstacle[] = [
+  // Pipelines (tunnels)
+  { id: 'pipe1',  type: 'pipe',  position: { x: -5, z:  0 }, axis: 'z', length: 5, width: 1, height: 0, radius: 0 },
+  { id: 'pipe2',  type: 'pipe',  position: { x:  2, z:  5 }, axis: 'x', length: 5, width: 1, height: 0, radius: 0 },
+  // Ramp over a raised deck — lined up with the spawn so the first run climbs it
+  { id: 'slope1', type: 'slope', position: { x:  0, z: -7 }, axis: 'z', length: 7, width: 3, height: 0.75, radius: 0 },
+  // Small hills
+  { id: 'hill1',  type: 'hill',  position: { x: -7, z:  6 }, axis: 'x', length: 0, width: 0, height: 0.9, radius: 2.6 },
+  { id: 'hill2',  type: 'hill',  position: { x:  9, z: 10 }, axis: 'x', length: 0, width: 0, height: 0.7, radius: 2.2 },
 ]

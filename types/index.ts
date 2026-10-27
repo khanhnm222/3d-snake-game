@@ -35,3 +35,27 @@ export interface ScoreEntry {
   round: number
   createdAt: string
 }
+
+
+// ── Obstacles — gameplay terrain the snake interacts with ────────────
+//   pipe  — tunnel; enter only through its ends (sides are solid)
+//   slope — raised ramp deck with side walls; cross only along its axis
+//   hill  — smooth grassy mound; can be crossed from any direction
+export type ObstacleType = 'pipe' | 'slope' | 'hill'
+
+export interface Obstacle {
+  id: string
+  type: ObstacleType
+  /** Centre cell */
+  position: Position
+  /** Travel axis for pipe / slope */
+  axis: 'x' | 'z'
+  /** Cells along the axis (pipe / slope, odd) */
+  length: number
+  /** Cells across the axis (slope, odd) */
+  width: number
+  /** Peak height in world units (slope deck / hill top) */
+  height: number
+  /** Hill radius in cells */
+  radius: number
+}

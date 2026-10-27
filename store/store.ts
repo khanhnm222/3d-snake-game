@@ -15,7 +15,11 @@ import {
   moveSnake, checkWallCollision, checkSelfCollision,
   checkFoodCollision, spawnFood, turnLeft, turnRight, initialSnake,
 } from '../utils/gameLogic'
-import { ROUND1_FOOD, ROUND1_LEVEL, ROUND1_OBJECTS } from '../configs/mapData'
+import { ROUND1_FOOD, ROUND1_LEVEL, ROUND1_OBJECTS, ROUND1_OBSTACLES } from '../configs/mapData'
+import { checkObstacleCollision, obstacleCells } from '../utils/terrain'
+
+// Cells food must never spawn on (pipes, slopes, hills)
+const BLOCKED_CELLS = obstacleCells()
 
 interface GameStore {
   // ── state ──────────────────────────────────────────────────────
@@ -110,8 +114,12 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const newSnake = moveSnake(snake, dir, false)
     const head = newSnake[0]
 
-    // Wall or self collision
-    if (checkWallCollision(head, ROUND1_LEVEL.size) || checkSelfCollision(newSnake)) {
+    // Wall, obstacle-side or self collision
+    if (
+      checkWallCollision(head, ROUND1_LEVEL.size) ||
+      checkObstacleCollision(head, dir) ||
+      checkSelfCollision(newSnake)
+    ) {
       const newLives = lives - 1
       if (newLives <= 0) {
         set({ status: 'gameover', highScore: Math.max(score, highScore) })
@@ -134,7 +142,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       const newFood: FoodItem[] = [
         ...remaining,
         spawnFood(
-          [...grownSnake.map(s => s), ...remaining.map(f => f.position)],
+          [...grownSnake, ...remaining.map(f => f.position), ...BLOCKED_CELLS],
           ROUND1_LEVEL.size,
           `f${++foodCounter}`,
         ),
@@ -173,4 +181,4 @@ export const useGameStore = create<GameStore>((set, get) => ({
   },
 }))
 
-export { ROUND1_OBJECTS, ROUND1_LEVEL }
+export { ROUND1_OBJECTS, ROUND1_LEVEL, ROUND1_OBSTACLES }

@@ -1,11 +1,11 @@
 'use client'
 import { useEffect, useRef } from 'react'
-import { useGameStore, ROUND1_LEVEL } from '@/store/store'
+import { useGameStore, ROUND1_LEVEL, ROUND1_OBSTACLES } from '@/store/store'
 
 const MAP_PX   = 140   // canvas size in pixels
 const PADDING  = 4     // px padding inside border
 
-export default function MiniMap() {
+export default function MiniMap({ displaySize = MAP_PX }: { displaySize?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const snake = useGameStore(s => s.snake)
   const food  = useGameStore(s => s.food)
@@ -41,6 +41,24 @@ export default function MiniMap() {
     ctx.lineWidth = 2
     ctx.strokeRect(PADDING, PADDING, MAP_PX - PADDING * 2, MAP_PX - PADDING * 2)
 
+    // Obstacles — hills as soft discs, slopes / pipes as their footprint
+    ROUND1_OBSTACLES.forEach(ob => {
+      const cx = toScreen(ob.position.x) + cellPx / 2
+      const cz = toScreen(ob.position.z) + cellPx / 2
+      if (ob.type === 'hill') {
+        ctx.fillStyle = 'rgba(120,170,80,0.45)'
+        ctx.beginPath()
+        ctx.arc(cx, cz, ob.radius * cellPx, 0, Math.PI * 2)
+        ctx.fill()
+        return
+      }
+      const along = ob.length * cellPx, across = (ob.type === 'pipe' ? 1 : ob.width) * cellPx
+      const w = ob.axis === 'x' ? along : across
+      const h = ob.axis === 'x' ? across : along
+      ctx.fillStyle = ob.type === 'pipe' ? 'rgba(130,150,160,0.85)' : 'rgba(170,150,110,0.8)'
+      ctx.fillRect(cx - w / 2, cz - h / 2, w, h)
+    })
+
     // Food
     food.forEach(f => {
       ctx.fillStyle = '#ffee44'
@@ -69,6 +87,7 @@ export default function MiniMap() {
       width={MAP_PX}
       height={MAP_PX}
       className="rounded border border-white/20 shadow-lg"
+      style={{ width: displaySize, height: displaySize }}
     />
   )
 }
