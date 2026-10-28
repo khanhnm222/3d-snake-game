@@ -34,7 +34,7 @@ export default function ScreenShell({ scene, accent, tint = 'slate', children }:
         <div className="h-[38dvh] sm:h-[42dvh] shrink-0 md:landscape:hidden" />
         <div className="flex-1 min-h-0 overflow-y-auto px-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:landscape:flex-none md:landscape:overflow-visible md:landscape:w-100 md:landscape:mr-[6vw] md:landscape:px-0 md:landscape:pb-0">
           <div
-            className="mx-auto flex w-full max-w-sm sm:max-w-md md:landscape:max-w-sm flex-col items-center gap-6 rounded-3xl border border-white/10 bg-slate-950/65 p-5 sm:p-6 backdrop-blur-md"
+            className="mx-auto flex w-full max-w-sm sm:max-w-md md:landscape:max-w-sm flex-col items-center gap-6 rounded-3xl border border-white/10 bg-slate-950/65 p-8 sm:p-6 backdrop-blur-md"
             style={{ boxShadow: `0 20px 60px -20px ${accent}55, inset 0 1px 0 rgba(255,255,255,0.06)` }}
           >
             {children}
